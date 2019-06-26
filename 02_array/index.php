@@ -1,53 +1,79 @@
 <?php
 
-$simpleArray = [ 'orange', 'banana', 'apple' ];
+/********************************
+ * Arrays
+ */
 
-echo '$simpleArray[1] = ' . $simpleArray[1] . PHP_EOL;
+// All arrays in PHP are associative arrays (hashmaps in some languages)
 
-$simpleArray[1] = 'strawberry';
+// Works with all PHP versions
+$associative = array('One' => 1, 'Two' => 2, 'Three' => 3);
 
-echo '$simpleArray = ' . print_r($simpleArray, true) . PHP_EOL;
+// PHP 5.4 introduced a new syntax
+$associative = ['One' => 1, 'Two' => 2, 'Three' => 3];
 
+echo $associative['One']; // prints 1
 
-echo PHP_EOL . 'By Copy : ' . PHP_EOL;
-$copyArray = $simpleArray;
+// Add an element to an associative array
+$associative['Four'] = 4;
 
-$simpleArray[] = 'pear';
+// List literals implicitly assign integer keys
+$array = ['One', 'Two', 'Three'];
+echo $array[0]; // => "One"
 
-echo '$simpleArray = ' . print_r($simpleArray, true) . PHP_EOL;
-echo '$copyArray = ' . print_r($copyArray, true) . PHP_EOL;
+// Add an element to the end of an array
+$array[] = 'Four';
+// or
+array_push($array, 'Five');
 
-echo PHP_EOL . 'By Reference : ' . PHP_EOL;
-$copyArray = &$simpleArray;
+// Remove element from array
+unset($array[3]);
 
-$simpleArray[] = 'pear';
+// Copy an array
+$copy = $array;
+$copy['One'] = 10;
+$isSame = $copy['One'] === $array['One']; // it is false!
 
-echo '$simpleArray = ' . print_r($simpleArray, true) . PHP_EOL;
-echo '$copyArray = ' . print_r($copyArray, true) . PHP_EOL;
+// Copy an array by reference
+$copy2 = &$array;
+$copy2['One'] = 10;
+$isSame = $copy2['One'] === $array['One']; // it is true!
 
-// PHP Helper
+// A lot a PHP built-in functions!
+// See: https://www.php.net/manual/fr/ref.array.php
+// Some useful functions:
 
-echo 'count($simpleArray) = ' . count($simpleArray) . PHP_EOL;
-echo 'reset($simpleArray) = ' . reset($simpleArray) . PHP_EOL;
-echo 'end($simpleArray) = ' . end($simpleArray) . PHP_EOL;
+echo 'count($array) = ' . count($array) . PHP_EOL;
+echo 'reset($array) = ' . reset($array) . PHP_EOL;
+echo 'end($array) = ' . end($array) . PHP_EOL;
 
 echo PHP_EOL . 'Push : ' . PHP_EOL;
 
-array_push($simpleArray, 'grapes');
-echo '$simpleArray = ' . print_r($simpleArray, true) . PHP_EOL;
-$result = array_pop($simpleArray);
+array_push($array, 'grapes');
+echo '$array = ' . print_r($array, true) . PHP_EOL;
+$result = array_pop($array);
 echo '$result = ' . $result . PHP_EOL;
-echo '$simpleArray = ' . print_r($simpleArray, true) . PHP_EOL;
+echo '$array = ' . print_r($array, true) . PHP_EOL;
 
 echo PHP_EOL . 'Merge : ' . PHP_EOL;
 
-echo '$copyArray = ' . print_r($copyArray, true) . PHP_EOL;
-$arrayMerged = array_merge($copyArray, $simpleArray);
+echo '$copy = ' . print_r($copy, true) . PHP_EOL;
+$arrayMerged = array_merge($copy, $array);
 echo '$arrayMerged = ' . print_r($arrayMerged, true) . PHP_EOL;
 
 echo PHP_EOL . 'Array Map : ' . PHP_EOL;
 
-$arrayMap = array_map(function($item) {
-    return sprintf('map : %s', $item);
-}, $arrayMerged);
+$arrayMap = array_map(
+    function ($item) {
+        return sprintf('map : %s', $item);
+    },
+    $arrayMerged
+);
 echo '$arrayMap = ' . print_r($arrayMap, true) . PHP_EOL;
+
+$arrayFilter = array_filter(
+    $arrayMerged,
+    function ($item) {
+        return $item > 0;
+    }
+);
