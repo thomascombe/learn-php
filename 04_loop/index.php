@@ -1,22 +1,57 @@
 <?php
 
-$odd_numbers = [1,3,5,7,9];
+/********************************
+ * Control Structures
+ */
 
-for ($i = 0; $i < count($odd_numbers); $i++) {
-    $odd_number = $odd_numbers[$i];
-    echo $odd_numbers[$i] . PHP_EOL;
-    $odd_number *= 2;
-//    $odd_numbers[$i] *= 2;
+// While, do...while and for loops are probably familiar
+$i = 0;
+while ($i < 5) {
+    echo $i++;
+} // Prints "01234"
+
+echo "\n";
+
+$i = 0;
+do {
+    echo $i++;
+} while ($i < 5); // Prints "01234"
+
+echo "\n";
+
+for ($x = 0; $x < 10; $x++) {
+    echo $x;
+} // Prints "0123456789"
+
+echo "\n";
+
+$wheels = ['bicycle' => 2, 'car' => 4];
+
+// Foreach loops can iterate over arrays
+foreach ($wheels as $wheel_count) {
+    echo $wheel_count;
+} // Prints "24"
+
+echo "\n";
+
+// You can iterate over the keys as well as the values
+foreach ($wheels as $vehicle => $wheel_count) {
+    echo "A $vehicle has $wheel_count wheels";
 }
 
-echo '$odd_numbers = ' . print_r($odd_numbers, true) . PHP_EOL;
+echo "\n";
 
-echo PHP_EOL . 'Foreach' . PHP_EOL;
+$i = 0;
+while ($i < 5) {
+    if ($i === 3) {
+        break; // Exit out of the while loop
+    }
+    echo $i++;
+} // Prints "012"
 
-$odd_numbers = [1,3,5,7,9];
-foreach ($odd_numbers as $odd_number) {
-    echo $odd_number . PHP_EOL;
-    $odd_number *= 2;
-}
-echo '$odd_numbers = ' . print_r($odd_numbers, true) . PHP_EOL;
-
+for ($i = 0; $i < 5; $i++) {
+    if ($i === 3) {
+        continue; // Skip this iteration of the loop
+    }
+    echo $i;
+} // Prints "0124"
